@@ -11,7 +11,7 @@
   "dependencies": {
     "@mdi/font": "5.9.55",
     "@types/tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
-    "core-js": "^3.21.1",
+    "core-js": "^3.23.3",
     "register-service-worker": "^1.7.1",
     "roboto-fontface": "*",
     "tailwind": "^4.0.0",
