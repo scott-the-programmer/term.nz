@@ -3,7 +3,7 @@ This project is a personal portfolio website that mimics a terminal interface. T
 
 Cobbled together quickly with the help of ChatGPT
 
-Currently hosted on [https://scott-the-programmer.com](https://scott-the-programmer.com/)
+Currently hosted on [https://term.nz](https://term.nz/)
 
 ![Terminal Screenshot](./docs/terminal.png)
 
