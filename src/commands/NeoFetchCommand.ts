@@ -1,6 +1,6 @@
 import Command from './Command';
 
-class NeofetchCommand extends Command {
+class NeoFetchCommand extends Command {
   name = 'neofetch';
   description = 'Display system information and React logo ASCII art';
 
@@ -40,7 +40,7 @@ class NeofetchCommand extends Command {
     for (let i = 0; i < maxLength; i++) {
       const logoLine = logoLines[i] || '';
       const infoLine = infoLines[i] || '';
-      const wrappedInfoLine = this.wrapText(infoLine, 40);
+      const wrappedInfoLine = this.wrapText(infoLine, 41);
       const wrappedInfoLines = wrappedInfoLine.split('\n');
 
       result += `${logoLine.padEnd(22)} ${wrappedInfoLines[0]}\n`;
@@ -78,4 +78,4 @@ class NeofetchCommand extends Command {
   }
 }
 
-export default NeofetchCommand;
+export default NeoFetchCommand;
