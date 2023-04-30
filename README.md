@@ -26,7 +26,7 @@ To run the project locally, follow these steps:
 
 Clone the repository:
 ```sh
-git clone https://github.com/scott-the-programmer/web.sh.git
+git clone https://github.com/scott-the-programmer/term.nz.git
 ```
 
 Install dependencies:
