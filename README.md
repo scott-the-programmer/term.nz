@@ -38,6 +38,11 @@ Run in dev mode:
 npm run dev
 ```
 
+Run tests:
+```sh
+npm test
+```
+
 The website should now be accessible at http://localhost:5173.
 
 # License
