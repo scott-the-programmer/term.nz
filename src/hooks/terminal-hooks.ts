@@ -1,6 +1,9 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-export const useScrollToBottom = (ref: React.RefObject<HTMLDivElement>, dep: any) => {
+export const useScrollToBottom = (
+  ref: React.RefObject<HTMLDivElement>,
+  dep: any,
+) => {
   useEffect(() => {
     if (ref.current) {
       ref.current.scrollTop = ref.current.scrollHeight;
@@ -31,6 +34,7 @@ export const useUpdateOutputAndUserTyping = (
   useEffect(() => {
     const currentCommandIndex = userPrompts.length - 1;
     if (currentCommandIndex === -1 || userPrompts.length === 0) {
+      setUserCanType(true);
       return () => {};
     }
 
