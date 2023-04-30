@@ -23,6 +23,7 @@ const handleCommand = (input: string) => {
       <Terminal
         userPrompts={userPrompts}
         onCommand={handleCommand}
+        delay={5}
       />
     </div>
   );

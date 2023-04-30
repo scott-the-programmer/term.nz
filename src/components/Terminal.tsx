@@ -4,6 +4,7 @@ import './Terminal.css';
 interface TerminalProps {
   userPrompts: { input: string; output: string }[];
   onCommand: (input: string) => void;
+  delay: number;
 }
 
 const getBrowserName = () => {
@@ -28,48 +29,63 @@ const getBrowserName = () => {
   return browserName;
 };
 
-const Terminal: React.FC<TerminalProps> = ({ userPrompts, onCommand }) => {
-  const terminalRef = useRef<HTMLDivElement>(null);
-  const [outputIndex, setOutputIndex] = useState(0);
-  const [currentOutput, setCurrentOutput] = useState('');
-  const [userCanType, setUserCanType] = useState(true);
-
+// Custom hook to handle scrolling
+const useScrollToBottom = (ref: React.RefObject<HTMLDivElement>, dep: any) => {
   useEffect(() => {
-    if (terminalRef.current) {
-      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+    if (ref.current) {
+      ref.current.scrollTop = ref.current.scrollHeight;
     }
-  }, [currentOutput]);
+  }, [dep]);
+};
 
+// Custom hook to handle resetting current output
+const useResetCurrentOutput = (
+  userPrompts: { input: string; output: string }[],
+  setCurrentOutput: React.Dispatch<React.SetStateAction<string>>,
+) => {
   useEffect(() => {
     if (userPrompts.length === 0) {
-      setUserCanType(true);
       return () => {};
     }
-
-    setCurrentOutput(''); // Reset the current output
+    setCurrentOutput('');
   }, [userPrompts]);
+};
 
+// Custom hook to handle updating the output and user typing
+const useUpdateOutputAndUserTyping = (
+  userPrompts: { input: string; output: string }[],
+  delay: number,
+  setUserCanType: React.Dispatch<React.SetStateAction<boolean>>,
+  outputIndex: number,
+  setOutputIndex: React.Dispatch<React.SetStateAction<number>>,
+  setCurrentOutput: React.Dispatch<React.SetStateAction<string>>,
+) => {
   useEffect(() => {
     const currentCommandIndex = userPrompts.length - 1;
     if (currentCommandIndex === -1 || userPrompts.length === 0) {
       return () => {};
     }
 
-    const timer = setTimeout(
-      () => {
-        if (userPrompts[currentCommandIndex]) {
-          setCurrentOutput(
-            userPrompts[currentCommandIndex].output.slice(0, outputIndex),
-          );
+    let timer: number;
+    if (delay == 0) {
+      setCurrentOutput(userPrompts[currentCommandIndex].output);
+    } else {
+      timer = setTimeout(
+        () => {
+          if (userPrompts[currentCommandIndex]) {
+            setCurrentOutput(
+              userPrompts[currentCommandIndex].output.slice(0, outputIndex),
+            );
 
-          if (outputIndex < userPrompts[currentCommandIndex].output.length) {
-            setOutputIndex(outputIndex + 1);
+            if (outputIndex < userPrompts[currentCommandIndex].output.length) {
+              setOutputIndex(outputIndex + 1);
+            }
           }
-        }
-      },
-      5,
-      [],
-    );
+        },
+        delay,
+        [],
+      );
+    }
 
     if (
       userPrompts.length > 0 &&
@@ -83,6 +99,28 @@ const Terminal: React.FC<TerminalProps> = ({ userPrompts, onCommand }) => {
       clearTimeout(timer);
     };
   }, [outputIndex, userPrompts]);
+};
+
+const Terminal: React.FC<TerminalProps> = ({
+  userPrompts,
+  onCommand,
+  delay = 5,
+}) => {
+  const terminalRef = useRef<HTMLDivElement>(null);
+  const [outputIndex, setOutputIndex] = useState(0);
+  const [currentOutput, setCurrentOutput] = useState('');
+  const [userCanType, setUserCanType] = useState(true);
+
+  useScrollToBottom(terminalRef, currentOutput);
+  useResetCurrentOutput(userPrompts, setCurrentOutput);
+  useUpdateOutputAndUserTyping(
+    userPrompts,
+    delay,
+    setUserCanType,
+    outputIndex,
+    setOutputIndex,
+    setCurrentOutput,
+  );
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -101,9 +139,8 @@ const Terminal: React.FC<TerminalProps> = ({ userPrompts, onCommand }) => {
   };
 
   const user = getBrowserName() + '@scott-term:~$';
-
   return (
-    <div className="terminal" >
+    <div className="terminal">
       <span className="terminal-tab">
         <span style={{ color: '#ebdbb2' }}>scott-term</span>
       </span>
@@ -111,7 +148,6 @@ const Terminal: React.FC<TerminalProps> = ({ userPrompts, onCommand }) => {
         {userPrompts.map((prompt, index) => {
           const isCurrentCommand = index === userPrompts.length - 1;
           let output = isCurrentCommand ? currentOutput : prompt.output;
-
           return (
             <React.Fragment key={index}>
               <span style={{ color: '#8ec07c' }}>{user}</span> {prompt.input}
