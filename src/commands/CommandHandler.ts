@@ -5,6 +5,7 @@ import NeoFetchCommand from "./NeoFetchCommand";
 import AboutCommand from "./AboutCommand";
 import EmploymentHistoryCommand from "./EmploymentHistoryCommand";
 import EducationCommand from "./EducationCommand";
+import SpinCommand from "./SpinCommand";
 
 class CommandHandler {
   commands: Command[];
@@ -17,6 +18,7 @@ class CommandHandler {
       new AboutCommand(),
       new EmploymentHistoryCommand(),
       new EducationCommand(),
+      new SpinCommand(),
     ];
   }
 

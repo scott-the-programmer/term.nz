@@ -1,5 +1,9 @@
-import React, { useRef, useState } from 'react';
-import { useScrollToBottom , useResetCurrentOutput, useUpdateOutputAndUserTyping } from '../hooks/terminal-hooks';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  useScrollToBottom,
+  useResetCurrentOutput,
+  useUpdateOutputAndUserTyping,
+} from '../hooks/terminal-hooks';
 import './Terminal.css';
 
 interface TerminalProps {
@@ -39,6 +43,7 @@ const Terminal: React.FC<TerminalProps> = ({
   const [outputIndex, setOutputIndex] = useState(0);
   const [currentOutput, setCurrentOutput] = useState('');
   const [userCanType, setUserCanType] = useState(true);
+  const [spin, setSpin] = useState(false);
 
   useScrollToBottom(terminalRef, currentOutput);
   useResetCurrentOutput(userPrompts, setCurrentOutput);
@@ -50,6 +55,27 @@ const Terminal: React.FC<TerminalProps> = ({
     setOutputIndex,
     setCurrentOutput,
   );
+  useEffect(() => {
+    const spinTerminalHandler = () => {
+      setSpin(true);
+      setTimeout(() => setSpin(false), 1000); 
+    };
+    window.addEventListener('spinTerminal', spinTerminalHandler);
+
+    return () =>
+      window.removeEventListener('spinTerminal', spinTerminalHandler);
+  }, []);
+
+  useEffect(() => {
+    const terminalElement = terminalRef.current;
+
+    if (terminalElement && spin) {
+      const onAnimationEnd = () => setSpin(false);
+      terminalElement.addEventListener('animationend', onAnimationEnd);
+      return () =>
+        terminalElement.removeEventListener('animationend', onAnimationEnd);
+    }
+  }, [spin]);
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -67,9 +93,11 @@ const Terminal: React.FC<TerminalProps> = ({
     }
   };
 
+  const terminalClassName = `terminal${spin ? ' terminal-spin' : ''}`;
+
   const user = getBrowserName() + '@scott-term:~$';
   return (
-    <div className="terminal">
+    <div className={terminalClassName}>
       <span className="terminal-tab">
         <span style={{ color: '#ebdbb2' }}>scott-term</span>
       </span>
