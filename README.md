@@ -1,6 +1,8 @@
 # Personal Portfolio Terminal
 This project is a personal portfolio website that mimics a terminal interface. The website is built using React and showcases a unique way to interact with a developer's work and background.
 
+Currently hosted on [https://scott-the-programmer.com](https://scott-the-programmer.com/)
+
 Cobbled together quickly with the help of ChatGPT
 
 ![Terminal Screenshot](./docs/terminal.png)
