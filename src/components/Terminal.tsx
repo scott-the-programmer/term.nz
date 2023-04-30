@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useScrollToBottom , useResetCurrentOutput, useUpdateOutputAndUserTyping } from '../hooks/terminal-hooks';
 import './Terminal.css';
 
@@ -29,8 +29,6 @@ const getBrowserName = () => {
 
   return browserName;
 };
-
-
 
 const Terminal: React.FC<TerminalProps> = ({
   userPrompts,
