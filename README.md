@@ -1,7 +1,7 @@
 # Personal Portfolio Terminal
 This project is a personal portfolio website that mimics a terminal interface. The website is built using React and showcases a unique way to interact with a developer's work and background.
 
-![Terminal Screenshot]()
+![Terminal Screenshot](./docs/terminal.png)
 
 ## Features
 
