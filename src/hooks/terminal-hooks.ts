@@ -72,3 +72,35 @@ export const useUpdateOutputAndUserTyping = (
     };
   }, [outputIndex, userPrompts]);
 };
+
+export const useSpin = (
+  setSpin: React.Dispatch<React.SetStateAction<boolean>>,
+) => {
+    useEffect(() => {
+    const spinTerminalHandler = () => {
+      setSpin(true);
+      setTimeout(() => setSpin(false), 1000); 
+    };
+    window.addEventListener('spinTerminal', spinTerminalHandler);
+
+    return () =>
+      window.removeEventListener('spinTerminal', spinTerminalHandler);
+  }, [])
+}
+
+export const useResetSpin = (
+  terminalRef:React.RefObject<HTMLDivElement> ,
+  setSpin: React.Dispatch<React.SetStateAction<boolean>>,
+  spin: boolean,
+) => {
+  useEffect(() => {
+    const terminalElement = terminalRef.current;
+
+    if (terminalElement && spin) {
+      const onAnimationEnd = () => setSpin(false);
+      terminalElement.addEventListener('animationend', onAnimationEnd);
+      return () =>
+        terminalElement.removeEventListener('animationend', onAnimationEnd);
+    }
+  }, [spin]);
+}

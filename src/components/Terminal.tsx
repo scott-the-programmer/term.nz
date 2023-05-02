@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   useScrollToBottom,
   useResetCurrentOutput,
   useUpdateOutputAndUserTyping,
+  useSpin,
+  useResetSpin,
 } from '../hooks/terminal-hooks';
 import './Terminal.css';
 
@@ -55,27 +57,8 @@ const Terminal: React.FC<TerminalProps> = ({
     setOutputIndex,
     setCurrentOutput,
   );
-  useEffect(() => {
-    const spinTerminalHandler = () => {
-      setSpin(true);
-      setTimeout(() => setSpin(false), 1000); 
-    };
-    window.addEventListener('spinTerminal', spinTerminalHandler);
-
-    return () =>
-      window.removeEventListener('spinTerminal', spinTerminalHandler);
-  }, []);
-
-  useEffect(() => {
-    const terminalElement = terminalRef.current;
-
-    if (terminalElement && spin) {
-      const onAnimationEnd = () => setSpin(false);
-      terminalElement.addEventListener('animationend', onAnimationEnd);
-      return () =>
-        terminalElement.removeEventListener('animationend', onAnimationEnd);
-    }
-  }, [spin]);
+  useSpin(setSpin)
+  useResetSpin(terminalRef, setSpin, spin)
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
