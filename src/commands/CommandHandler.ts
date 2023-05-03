@@ -6,6 +6,7 @@ import AboutCommand from "./AboutCommand";
 import EmploymentHistoryCommand from "./EmploymentHistoryCommand";
 import EducationCommand from "./EducationCommand";
 import SpinCommand from "./SpinCommand";
+import RmRfCommand from "./RmRfCommand";
 
 class CommandHandler {
   commands: Command[];
@@ -19,6 +20,7 @@ class CommandHandler {
       new EmploymentHistoryCommand(),
       new EducationCommand(),
       new SpinCommand(),
+      new RmRfCommand(),
     ];
   }
 

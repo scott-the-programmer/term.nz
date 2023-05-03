@@ -5,7 +5,9 @@ class HelpCommand extends Command {
   description = "Show available commands";
 
   execute(commands: Command[]): string {
-    const commandDescriptions = commands.map((command) => `- ${command.name}: ${command.description}`).join("\n");
+    const commandDescriptions = commands
+      .filter((command) => !command.secret)
+      .map((command) => `- ${command.name}: ${command.description}`).join("\n");
     return `Available commands:\n${commandDescriptions}`;
   }
 }
