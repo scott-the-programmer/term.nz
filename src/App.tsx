@@ -32,7 +32,7 @@ const App: React.FC = () => {
         <Terminal
           userPrompts={userPrompts}
           onCommand={handleCommand}
-          delay={5}
+          delay={1}
         />
       )}
     </div>
