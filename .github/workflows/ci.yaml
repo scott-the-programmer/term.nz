@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,14 +16,6 @@ jobs:
           npm install
           npm test
           npm run build
-      - name: ssh deploy
-        uses: easingthemes/ssh-deploy@v2.2.11
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }} 
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: ${{ secrets.REMOTE_TARGET }}
-          SOURCE: "dist/" 
   push_to_registry:
     name: Push Docker image to GitHub Container Registry
     runs-on: ubuntu-latest
