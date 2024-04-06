@@ -53,7 +53,7 @@ Auckland, New Zealand
     }
 
     // Here we extract the start date of the latest employment.
-    const startDateString = "Oct 2022";
+    const startDateString = "Jan 2024";
 
     // Convert the month name to a number (1-12)
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
