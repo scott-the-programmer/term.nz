@@ -6,6 +6,12 @@ class EmploymentHistoryCommand extends Command {
 
   execute(): string {
     const employmentHistory = `
+Senior Site Reliability Engineer
+Lightspeed Commerce · Full-time
+Oct 2022 - Jan 2024 · 1 yr 4 mos
+Auckland, New Zealand
+Skills: Golang · Amazon Web Services (AWS) · Terraform · Apache Kafka
+
 Principal Software Engineer
 Serko Ltd. · Full-time
 Jun 2022 - Oct 2022 · 5 mos
@@ -62,11 +68,11 @@ Auckland, New Zealand
 
     const formattedMonths = monthsPassed > 12 ? `${Math.floor(monthsPassed/12)} yrs ${monthsPassed%12} mos` : `${monthsPassed} mos`;
 
-    const latestEmploymentEntry = `Senior Site Reliability Engineer
-Lightspeed Commerce · Full-time
-Oct 2022 - Present · ${formattedMonths}
+    const latestEmploymentEntry = `Devops Technical Lead
+StarshipIt· Full-time
+Jan 2024 - Present · ${formattedMonths}
 Auckland, New Zealand
-Skills: Golang · Amazon Web Services (AWS) · Terraform · Apache Kafka`;
+Skills: C# · .NET Core · .NET Framework · Microsoft Azure`;
 
     return `${latestEmploymentEntry}\n${employmentHistory}`;
   }
