@@ -102,6 +102,7 @@ const Terminal: React.FC<TerminalProps> = ({
             <span style={{ color: '#8ec07c' }}>{user} </span>
             <input
               className="terminal-input"
+              autoComplete='off'
               onKeyPress={handleKeyPress}
               autoFocus
             />
