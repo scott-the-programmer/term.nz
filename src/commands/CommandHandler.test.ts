@@ -7,6 +7,8 @@ describe("CommandHandler", () => {
     expect(commandHandler.handleCommand("help")).toMatchInlineSnapshot(`
 "Available commands:
 - help: Show available commands
+- ls: List all available commands
+- whoami: Display current user information
 - clear: A command to clear the screen
 - neofetch: Display system information and React logo ASCII art
 - about: Display information about the user

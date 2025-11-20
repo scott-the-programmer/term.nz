@@ -12,7 +12,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #1c1e2c; /* Set the background color to grey */
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(142, 192, 124, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(104, 157, 106, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(45, 27, 78, 0.3) 0%, transparent 80%),
+    linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 25%, #16213e 50%, #1a1a2e 75%, #0f0f1e 100%);
+  background-size: 400% 400%, 400% 400%, 300% 300%, 100% 100%;
+  animation: gradientShift 20s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%, 100% 50%, 50% 50%, 0 0; }
+  50% { background-position: 100% 50%, 0% 50%, 25% 25%, 0 0; }
+  100% { background-position: 0% 50%, 100% 50%, 50% 50%, 0 0; }
 }
 
 code {

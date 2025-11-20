@@ -7,6 +7,8 @@ import EmploymentHistoryCommand from "./EmploymentHistoryCommand";
 import EducationCommand from "./EducationCommand";
 import SpinCommand from "./SpinCommand";
 import RmRfCommand from "./RmRfCommand";
+import LsCommand from "./LsCommand";
+import WhoAmICommand from "./WhoAmICommand";
 
 class CommandHandler {
   commands: Command[];
@@ -14,6 +16,8 @@ class CommandHandler {
   constructor() {
     this.commands = [
       new HelpCommand(),
+      new LsCommand(),
+      new WhoAmICommand(),
       new ClearCommand(),
       new NeoFetchCommand(),
       new AboutCommand(),
@@ -30,13 +34,13 @@ class CommandHandler {
     }
     const command = this.commands.find((cmd) => cmd.name === commandName.toLowerCase());
     if (command) {
-      if (command instanceof HelpCommand) {
+      if (command instanceof HelpCommand || command instanceof LsCommand) {
         return command.execute(this.commands);
       }
       return command.execute();
     }
 
-    return `Unknown command: '${commandName}'. Type 'help' for available commands.`;
+    return `Unknown command: '${commandName}'. Type 'help' or 'ls' for available commands.`;
   }
 }
 

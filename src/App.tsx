@@ -1,14 +1,33 @@
 import React, { useState } from 'react';
 import Terminal from './components/Terminal';
+import ParticleBackground from './components/ParticleBackground';
 import './App.css';
 import CommandHandler from './commands/CommandHandler';
 
 const commandHandler = new CommandHandler();
 
+const welcomeBanner = `
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║   ███████╗ ██████╗ ██████╗ ████████╗████████╗    ███╗   ███╗║
+║   ██╔════╝██╔════╝██╔═══██╗╚══██╔══╝╚══██╔══╝    ████╗ ████║║
+║   ███████╗██║     ██║   ██║   ██║      ██║       ██╔████╔██║║
+║   ╚════██║██║     ██║   ██║   ██║      ██║       ██║╚██╔╝██║║
+║   ███████║╚██████╗╚██████╔╝   ██║      ██║       ██║ ╚═╝ ██║║
+║   ╚══════╝ ╚═════╝ ╚═════╝    ╚═╝      ╚═╝       ╚═╝     ╚═╝║
+║                                                              ║
+║              Welcome to Scott's Terminal Portfolio           ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+Type 'help' or 'ls' to see available commands
+Type 'neofetch' to see system info
+`;
+
 const App: React.FC = () => {
   const [userPrompts, setUserPrompts] = useState<
     { input: string; output: string }[]
-  >([]);
+  >([{ input: '', output: welcomeBanner }]);
   const [terminalDeleted, setTerminalDeleted] = useState<boolean>(false);
   const handleCommand = (input: string) => {
     const result = commandHandler.handleCommand(input);
@@ -28,6 +47,7 @@ const App: React.FC = () => {
   };
   return (
     <div className="App">
+      <ParticleBackground />
       {!terminalDeleted && (
         <Terminal
           userPrompts={userPrompts}
